@@ -11,5 +11,7 @@ namespace Inventory.Data
         }
 
         public DbSet<Inventory.Models.Sales> Sales { get; set; }
+
+        public DbSet<Inventory.Models.Customer> Customer { get; set; }
     }
 }
