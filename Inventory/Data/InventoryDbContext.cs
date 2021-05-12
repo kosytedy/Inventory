@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Inventory.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,6 +10,6 @@ namespace Inventory.Data
         {
         }
 
-        public DbSet<Customer> Customers { get; set; }
+        public DbSet<Inventory.Models.Sales> Sales { get; set; }
     }
 }
