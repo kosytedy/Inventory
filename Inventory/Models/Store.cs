@@ -12,7 +12,7 @@ namespace Inventory.Models
         [Required]
         public string Name { get; set; }
 
-        [Required]
+        [Required] 
         public string Address { get; set; }
 
         public virtual ICollection<Sales> ProductSold { get; set; }
