@@ -232,4 +232,4 @@ _Pvt_Extensions
 .fake/
 
 # Database
-Inventory.db
+/Inventory.db
