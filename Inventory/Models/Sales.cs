@@ -18,7 +18,7 @@ namespace Inventory.Models
         [Required]
         public int StoreId { get; set; }
 
-        [Required, DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        [Required]
         public DateTime DateSold { get; set; }
 
         public virtual Customer Customer { get; set; }
