@@ -8,6 +8,7 @@ class Customers extends Component {
         super(props);
         this.state = {  
             customers: [],
+            loading: true,
         }
     }
 
@@ -16,12 +17,16 @@ class Customers extends Component {
     }
 
     render() { 
-        const { customers } = this.state;
+        const { customers, loading } = this.state;
+        const tableData = (loading) 
+            ? <div>Fetching customers</div> 
+            : <CustomerTable customers={customers} />;
+            
         return (  
             <Fragment>
                 <h3>Customers</h3>
                 <Button content='New Customer' icon='plus' labelPosition='left' primary />
-                <CustomerTable customers={customers} />
+                { tableData }
             </Fragment>
         );
     }
@@ -31,6 +36,7 @@ class Customers extends Component {
             .then(({data}) => {
                 this.setState({
                     customers: data,
+                    loading: false,
                 })
             })
             .catch(function (error) {
