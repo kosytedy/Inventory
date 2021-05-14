@@ -20,8 +20,8 @@ class Customers extends Component {
         const { customers, loading } = this.state;
         const tableData = (loading) 
             ? <div>Fetching customers</div> 
-            : <CustomerTable customers={customers} />;
-            
+            : <CustomerTable customers={customers} refreshData={this.getCustomers} />;
+
         return (  
             <Fragment>
                 <h3>Customers</h3>
