@@ -1,7 +1,8 @@
 import React, { Component, Fragment } from 'react';
 import CustomerTable from './tables/CustomerTable';
 import axios from 'axios';
-import { Button } from 'semantic-ui-react'
+import { Button } from 'semantic-ui-react';
+import CreateCustomerModal from './modals/CreateCustomerModal';
 
 class Customers extends Component {
     constructor(props) {
@@ -9,6 +10,7 @@ class Customers extends Component {
         this.state = {  
             customers: [],
             loading: true,
+            createModalOpen: false
         }
     }
 
@@ -17,7 +19,7 @@ class Customers extends Component {
     }
 
     render() { 
-        const { customers, loading } = this.state;
+        const { customers, loading, customer, createModalOpen } = this.state;
         const tableData = (loading) 
             ? <div>Fetching customers</div> 
             : <CustomerTable customers={customers} refreshData={this.getCustomers} />;
@@ -25,8 +27,9 @@ class Customers extends Component {
         return (  
             <Fragment>
                 <h3>Customers</h3>
-                <Button content='New Customer' icon='plus' labelPosition='left' primary />
+                <Button content='New Customer' onClick={() => this.setState({createModalOpen:true})} icon='plus' labelPosition='left' primary />
                 { tableData }
+                <CreateCustomerModal createModalOpen={createModalOpen} setCreateModalOpen={(toggle) => this.setState({createModalOpen:toggle})} refreshData={this.getCustomers} createAction={this.createCustomer} />
             </Fragment>
         );
     }
@@ -43,6 +46,8 @@ class Customers extends Component {
                 console.log(error);
             });
     }
+
+    
 }
 
 export default Customers;

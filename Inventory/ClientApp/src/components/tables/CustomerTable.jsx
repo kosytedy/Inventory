@@ -7,6 +7,7 @@ const CustomerTable = (props) => {
 
     const { customers, refreshData } = props;
     const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+    //const [createModalOpen, setCreateModalOpen] = useState(false);
     const [currCustomer, setCurrCustomer] = useState(0);
 
     const deleteCustomer = (id) => {
@@ -68,7 +69,7 @@ const CustomerTable = (props) => {
                 </Table.Row>
                 </Table.Footer>
             </Table>
-            {/* Delete Modal */}
+            
             <DeleteModal deleteModalOpen={deleteModalOpen} setDeleteModalOpen={setDeleteModalOpen} deleteAction={deleteCustomer} actionId={currCustomer} />
         </Fragment>
     );
