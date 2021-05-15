@@ -2,13 +2,18 @@ import React, { Fragment, useState } from 'react';
 import axios from 'axios';
 import { Icon, Menu, Table, Button } from 'semantic-ui-react';
 import DeleteModal from '../modals/DeleteModal';
+import EditCustomerModal from '../modals/EditCustomerModal';
 
 const CustomerTable = (props) => {
 
     const { customers, refreshData } = props;
     const [deleteModalOpen, setDeleteModalOpen] = useState(false);
-    //const [createModalOpen, setCreateModalOpen] = useState(false);
-    const [currCustomer, setCurrCustomer] = useState(0);
+    const [editModalOpen, setEditModalOpen] = useState(false);
+    const [currCustomer, setCurrCustomer] = useState({
+        id: 0,
+        name: "",
+        address: ""
+    });
 
     const deleteCustomer = (id) => {
         axios.delete(`/api/Customers/${id}`)
@@ -40,10 +45,10 @@ const CustomerTable = (props) => {
                                 <Table.Cell>{ c.name }</Table.Cell>
                                 <Table.Cell>{ c.address }</Table.Cell>
                                 <Table.Cell>
-                                    <Button content='Edit' icon='edit' color='yellow' />
+                                    <Button content='Edit' icon='edit' color='yellow' onClick={() => {setCurrCustomer(c); setEditModalOpen(true)}}/>
                                 </Table.Cell>
                                 <Table.Cell>
-                                    <Button content='Delete' icon='trash alternate' color='red' onClick={() => { setCurrCustomer(c.id); setDeleteModalOpen(true)}} />
+                                    <Button content='Delete' icon='trash alternate' color='red' onClick={() => { setCurrCustomer(c); setDeleteModalOpen(true)}} />
                                 </Table.Cell>
                             </Table.Row>
                         ))
@@ -70,7 +75,8 @@ const CustomerTable = (props) => {
                 </Table.Footer>
             </Table>
             
-            <DeleteModal deleteModalOpen={deleteModalOpen} setDeleteModalOpen={setDeleteModalOpen} deleteAction={deleteCustomer} actionId={currCustomer} />
+            <DeleteModal deleteModalOpen={deleteModalOpen} setDeleteModalOpen={setDeleteModalOpen} deleteAction={deleteCustomer} actionId={currCustomer.id} />
+            <EditCustomerModal editModalOpen={editModalOpen} setEditModalOpen={setEditModalOpen} customer={currCustomer} refreshData={refreshData} />
         </Fragment>
     );
   

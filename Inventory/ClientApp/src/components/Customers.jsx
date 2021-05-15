@@ -19,7 +19,7 @@ class Customers extends Component {
     }
 
     render() { 
-        const { customers, loading, customer, createModalOpen } = this.state;
+        const { customers, loading, createModalOpen } = this.state;
         const tableData = (loading) 
             ? <div>Fetching customers</div> 
             : <CustomerTable customers={customers} refreshData={this.getCustomers} />;
