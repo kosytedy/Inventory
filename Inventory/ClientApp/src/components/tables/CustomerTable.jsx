@@ -75,7 +75,7 @@ const CustomerTable = (props) => {
                 </Table.Footer>
             </Table>
             
-            <DeleteModal deleteModalOpen={deleteModalOpen} setDeleteModalOpen={setDeleteModalOpen} deleteAction={deleteCustomer} actionId={currCustomer.id} />
+            <DeleteModal deleteModalOpen={deleteModalOpen} setDeleteModalOpen={setDeleteModalOpen} deleteAction={deleteCustomer} actionId={currCustomer.id} actionName="Customer" />
             <EditCustomerModal editModalOpen={editModalOpen} setEditModalOpen={setEditModalOpen} customer={currCustomer} refreshData={refreshData} />
         </Fragment>
     );

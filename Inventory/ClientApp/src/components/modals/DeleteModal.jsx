@@ -3,7 +3,7 @@ import { Button, Modal } from 'semantic-ui-react';
 
 const DeleteModal = (props) => {
 
-    const {deleteModalOpen, setDeleteModalOpen, deleteAction, actionId} = props;
+    const {deleteModalOpen, setDeleteModalOpen, deleteAction, actionId, actionName} = props;
 
     return (
         <Modal
@@ -13,7 +13,7 @@ const DeleteModal = (props) => {
             onOpen={() => setDeleteModalOpen(true)}
             open={deleteModalOpen}
             >
-            <Modal.Header>Delete Customer</Modal.Header>
+            <Modal.Header>Delete {actionName}</Modal.Header>
             <Modal.Content>
                 <p>Are you sure?</p>
             </Modal.Content>

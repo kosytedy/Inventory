@@ -75,7 +75,7 @@ const ProductTable = (props) => {
                 </Table.Footer>
             </Table>
             
-            <DeleteModal deleteModalOpen={deleteModalOpen} setDeleteModalOpen={setDeleteModalOpen} deleteAction={deleteProduct} actionId={currProduct.id} />
+            <DeleteModal deleteModalOpen={deleteModalOpen} setDeleteModalOpen={setDeleteModalOpen} deleteAction={deleteProduct} actionId={currProduct.id} actionName="Product" />
             <EditProductModal editModalOpen={editModalOpen} setEditModalOpen={setEditModalOpen} customer={currProduct} refreshData={refreshData} />
         </Fragment>
     );
