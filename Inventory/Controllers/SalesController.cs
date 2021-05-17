@@ -25,7 +25,11 @@ namespace Inventory.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Sales>>> GetSales()
         {
-            return await _context.Sales.ToListAsync();
+            return await _context.Sales
+                .Include(sales => sales.Customer)
+                .Include(sales => sales.Product)
+                .Include(sales => sales.Store)
+                .ToListAsync();
         }
 
         // GET: api/Sales/5
