@@ -1,8 +1,11 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { Fragment, useState } from "react";
 import axios from "axios";
+import DataTable from "react-data-table-component";
 import { Icon, Menu, Table, Button } from "semantic-ui-react";
+import Moment from 'react-moment';
 import DeleteModal from "../modals/DeleteModal";
-import EditSaleModal from '../modals/EditSaleModal';
+import EditSaleModal from "../modals/EditSaleModal";
+import DataTableCustomStyle from "../DataTableCustomStyle";
 
 const SalesTable = (props) => {
   const { sales, refreshData, customers, products, stores } = props;
@@ -29,78 +32,66 @@ const SalesTable = (props) => {
       });
   };
 
+  const columns = [
+    {
+      name: "Customer",
+      cell: (row) => row.customer.name,
+      sortable: true,
+    },
+    {
+      name: "Product",
+      cell: (row) => row.product.name,
+      sortable: true,
+    },
+    {
+      name: "Store",
+      cell: (row) => row.store.name,
+      sortable: true,
+    },
+    {
+      name: "Date sold",
+      cell: (row) => <Moment format="D MMM, YYYY">{row.dateSold}</Moment>,
+      sortable: true,
+    },
+    {
+      name: "Actions",
+      cell: (row) => (
+        <Button
+          content="Edit"
+          icon="edit"
+          color="yellow"
+          onClick={() => {
+            setCurrSale(row);
+            setEditModalOpen(true);
+          }}
+        />
+      ),
+    },
+    {
+      name: "Actions",
+      cell: (row) => (
+        <Button
+          content="Delete"
+          icon="trash alternate"
+          color="red"
+          onClick={() => {
+            setCurrSale(row);
+            setDeleteModalOpen(true);
+          }}
+        />
+      ),
+    },
+  ];
+
   return (
     <Fragment>
-      <Table celled>
-        <Table.Header>
-          <Table.Row>
-            <Table.HeaderCell>Customer</Table.HeaderCell>
-            <Table.HeaderCell>Product</Table.HeaderCell>
-            <Table.HeaderCell>Store</Table.HeaderCell>
-            <Table.HeaderCell>Date Sold</Table.HeaderCell>
-            <Table.HeaderCell>Actions</Table.HeaderCell>
-            <Table.HeaderCell>Actions</Table.HeaderCell>
-          </Table.Row>
-        </Table.Header>
-
-        <Table.Body>
-          {sales.map((s) => (
-            <Table.Row key={s.id}>
-              <Table.Cell>{s.customer.name}</Table.Cell>
-              <Table.Cell>{s.product.name}</Table.Cell>
-              <Table.Cell>{s.store.name}</Table.Cell>
-              <Table.Cell>
-                {new Intl.DateTimeFormat("en-GB", {
-                  year: "numeric",
-                  month: "short",
-                  day: "2-digit",
-                }).format(new Date(Date.parse(s.dateSold)))}
-              </Table.Cell>
-              <Table.Cell>
-                <Button
-                  content="Edit"
-                  icon="edit"
-                  color="yellow"
-                  onClick={() => {
-                    setCurrSale(s);
-                    setEditModalOpen(true);
-                  }}
-                />
-              </Table.Cell>
-              <Table.Cell>
-                <Button
-                  content="Delete"
-                  icon="trash alternate"
-                  color="red"
-                  onClick={() => {
-                    setCurrSale(s);
-                    setDeleteModalOpen(true);
-                  }}
-                />
-              </Table.Cell>
-            </Table.Row>
-          ))}
-        </Table.Body>
-
-        <Table.Footer>
-          <Table.Row>
-            <Table.HeaderCell colSpan="6">
-              <Menu floated="right" pagination>
-                <Menu.Item as="a" icon>
-                  <Icon name="chevron left" />
-                </Menu.Item>
-                <Menu.Item as="a">1</Menu.Item>
-                <Menu.Item as="a">2</Menu.Item>
-                <Menu.Item as="a">3</Menu.Item>
-                <Menu.Item as="a">4</Menu.Item>
-                <Menu.Item as="a" icon>
-                  <Icon name="chevron right" />
-                </Menu.Item>
-              </Menu>
-            </Table.HeaderCell>
-          </Table.Row>
-        </Table.Footer>
-      </Table>
+      <DataTable
+        columns={columns}
+        data={sales}
+        pagination={true}
+        striped={true}
+        customStyles={DataTableCustomStyle}
+      />
 
       <DeleteModal
         deleteModalOpen={deleteModalOpen}
