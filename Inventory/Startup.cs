@@ -26,7 +26,8 @@ namespace Inventory
             options.UseSqlite(
                 Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+            
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
